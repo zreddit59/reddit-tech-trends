@@ -1,0 +1,37 @@
+
+	java:S1125"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ö¡Œ¢è1J$97dcda83-2f07-47dc-9e04-602be6339ca8
+	java:S1127"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ö¡Œ¢è1J$5a3822f6-2632-45b4-a61d-e121f971bc33
+	java:S1129"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ö¡Œ¢è1J$a6add6b6-8ff6-447e-8134-2a6b4354a44d
+	java:S112<"FDefine and throw a dedicated exception instead of using a generic one.(î©¦şÿÿÿÿ8ö¡Œ¢è1J$01dda39d-5550-4622-83cb-938209ead4ab
+	java:S112Y"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ö¡Œ¢è1J$79ebb25b-7c90-4309-925e-c80d4c2b9a17
+	java:S112["FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ö¡Œ¢è1J$228eea71-bc99-4cf5-b093-b81bbd69d4cd
+	java:S112]"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ö¡Œ¢è1J$5bd1d548-7d38-4f37-99d4-77d5a31d4e48
+	java:S112a"FDefine and throw a dedicated exception instead of using a generic one.(½áêÉúÿÿÿÿ8Š¤¢è1J$7af645bf-6a61-434d-ad78-c2521d65cd0f
+	java:S112ƒ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8·ª¡¢è1J$3b7dcd17-9026-4ee6-a688-fc6e19dd0cea
+	java:S112…"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8·ª¡¢è1J$95387f34-c064-419f-afb8-22a6e5f63b34
+	java:S112‡"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8¸ª¡¢è1J$0d46c732-6858-4e19-80b4-045300d3778a
+	java:S112‹"FDefine and throw a dedicated exception instead of using a generic one.(¥Ê‹‹úÿÿÿÿ8¸ª¡¢è1J$0f10aeab-c863-4113-87f7-112ab7375dd5
+
+java:S1192#"NDefine a constant instead of duplicating this literal "Authorization" 3 times.(¶İÇB8ºª¡¢è1J$778a54ed-fcdf-4655-bdee-84a40463ff2f
+
+java:S11922"HDefine a constant instead of duplicating this literal "Error: " 3 times.(ÇŸşÜúÿÿÿÿ8ºª¡¢è1J$bd14fcd4-7ed8-4c72-bfcc-120db77279e9
+­
+java:S1488v"eImmediately return this expression instead of assigning it to the temporary variable "messagesCount".(Ùâ€çüÿÿÿÿ8Œ¨«¢è1J$e40dc5b6-fb8e-408c-8a1b-ef7e0e6e38bd
+Œ
+java:S21476"DCombine this catch with the one at line 52, which has the same body.(¢­§Œÿÿÿÿÿ8¤¢Œ¢è1J$f094a2e3-c841-4fff-a991-3068c34b4915
+‡
+java:S21478"DCombine this catch with the one at line 54, which has the same body.(ï­£Ä8®¢Œ¢è1J$04f5de9a-9815-49b1-b605-b51f278391d0
+m	java:S106/"+Replace this use of System.out by a logger.(¢Éì¬8±¢Œ¢è1J$b980a8aa-e021-466b-ac1a-f844a46a1c50
+r	java:S1062"+Replace this use of System.err by a logger.(ÇŸşÜúÿÿÿÿ8²¢Œ¢è1J$863337c0-aa32-48a5-9c40-de3016739287
+Œ
+java:S2147Z"DCombine this catch with the one at line 88, which has the same body.(¢­§Œÿÿÿÿÿ8¹¢Œ¢è1J$49d21d9f-5538-46c6-9afd-b432e293863c
+‡
+java:S2147\"DCombine this catch with the one at line 90, which has the same body.(ï­£Ä8¹¢Œ¢è1J$6ad2cd26-20a4-4889-8ea7-716d1fd63405
+m	java:S106R"+Replace this use of System.out by a logger.(ßíğƒ8»¢Œ¢è1J$e8ae99e7-293a-48c5-b613-17f982b685d8
+r	java:S106S"+Replace this use of System.out by a logger.(øãµÇıÿÿÿÿ8¼¢Œ¢è1J$9aaef8b5-c44b-43fe-8cda-768b0bf6f4a3
+r	java:S106V"+Replace this use of System.err by a logger.(ÇŸşÜúÿÿÿÿ8½¢Œ¢è1J$a8e01ad8-5f34-4fe8-96d1-ecf945e50b29
+
+java:S2147„"ECombine this catch with the one at line 130, which has the same body.(¢­§Œÿÿÿÿÿ8ãª¡¢è1J$8b070253-59e4-4bd8-857a-372ec1ed7968
+‰
+java:S2147†"ECombine this catch with the one at line 132, which has the same body.(ï­£Ä8ãª¡¢è1J$944efc8b-26c1-4c8c-87aa-c6a53e16e643
+s	java:S106€"+Replace this use of System.err by a logger.(ÇŸşÜúÿÿÿÿ8äª¡¢è1J$8e674c93-04b6-46f7-8d72-132ea73ce971
