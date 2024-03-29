@@ -42,7 +42,7 @@ jobs:
         git config --global user.name 'Zreddit'
         git config --global user.email 'Zreddit59@techie.com'
         git checkout -b csvs
-        csv_path=$(find . -name "topic.csv")
+        csv_path=$(find . -name "topics.csv")
         if [ -z "$csv_path" ]; then
           echo "topic.csv not found in the workspace."
         else
