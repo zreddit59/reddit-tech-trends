@@ -30,15 +30,21 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Publish Logs
+    - name: Find and Publish Logs
       run: |
         git config --global user.name 'Zreddit'
         git config --global user.email 'Zreddit59@techie.com'
         git checkout -b logs
-        cp ./reddit.log ./logs/
-        git add ./logs/reddit.log
-        git commit -m "Add logs"
-        git push origin logs
+        log_path=$(find . -name "reddit.log")
+        if [ -z "$log_path" ]; then
+          echo "reddit.log not found in the workspace."
+        else
+          cp $log_path ./logs/
+          git add ./logs/reddit.log
+          git commit -m "Add logs"
+          git push origin logs
+        fi
+
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
