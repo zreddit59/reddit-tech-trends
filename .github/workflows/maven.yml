@@ -34,22 +34,22 @@ jobs:
     - name: Run it
       run: java -jar target/reddit-watcher-1.0-SNAPSHOT-jar-with-dependencies.jar
 
-    - name: Create logs directory
-      run: mkdir -p ./logs/
+    - name: Create csvs directory
+      run: mkdir -p ./csvs/
 
-    - name: Find and Publish Logs
+    - name: Find and Publish csvs
       run: |
         git config --global user.name 'Zreddit'
         git config --global user.email 'Zreddit59@techie.com'
-        git checkout -b logs
-        log_path=$(find . -name "reddit.log")
-        if [ -z "$log_path" ]; then
-          echo "reddit.log not found in the workspace."
+        git checkout -b csvs
+        csv_path=$(find . -name "topic.csv")
+        if [ -z "$csv_path" ]; then
+          echo "topic.csv not found in the workspace."
         else
-          cp $log_path ./logs/
-          git add ./logs/reddit.log
-          git commit -m "Add logs"
-          git push origin logs
+          cp $csv_path ./csvs/
+          git add ./csvs/topics.csv
+          git commit -m "Add csvs"
+          git push origin csvs
         fi
 
 
