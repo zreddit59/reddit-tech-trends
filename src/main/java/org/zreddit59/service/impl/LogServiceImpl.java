@@ -10,12 +10,12 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class LogServiceImpl implements LogService {
-    private static final Logger      log = Logger.getLogger( Main.class.getName() );
+    private static final Logger log = Logger.getLogger( Main.class.getName() );
 
     static {
         try {
             // Initialize the FileHandler once for the entire application lifecycle
-            FileHandler fileHandler = new FileHandler("reddit.log", true);
+            FileHandler fileHandler = new FileHandler( "reddit.log", true );
             fileHandler.setFormatter( new SimpleFormatter() );
             log.addHandler( fileHandler );
             log.setLevel( Level.INFO );
@@ -27,7 +27,7 @@ public class LogServiceImpl implements LogService {
     @Override
     public void log( String message, String level ) {
         // Check if level is null and assign a default level if necessary
-        if (level == null) {
+        if ( level == null ) {
             level = "severe"; // Default level can be set to "info", "fine", or "severe"
         }
         // Log the message at the appropriate level
