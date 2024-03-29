@@ -15,7 +15,7 @@ public class LogServiceImpl implements LogService {
     static {
         try {
             // Initialize the FileHandler once for the entire application lifecycle
-            FileHandler fileHandler = new FileHandler("src/main/resources/reddit.log", true);
+            FileHandler fileHandler = new FileHandler("./github/workspace/reddit.log", true);
             fileHandler.setFormatter( new SimpleFormatter() );
             log.addHandler( fileHandler );
             log.setLevel( Level.INFO );
