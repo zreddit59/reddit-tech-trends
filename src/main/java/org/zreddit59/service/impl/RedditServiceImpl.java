@@ -5,17 +5,15 @@ import okhttp3.*;
 import org.zreddit59.dto.RedditAboutData;
 import org.zreddit59.dto.RedditMessagesData;
 import org.zreddit59.dto.RedditToken;
+import org.zreddit59.service.LogService;
 import org.zreddit59.service.RedditService;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.logging.Logger;
 
 
 public class RedditServiceImpl implements RedditService {
-
-    private static final Logger logger = Logger.getLogger( RedditServiceImpl.class.getName() );
-
+    LogService logService = new LogServiceImpl();
     public static final String AUTHORIZATION = "Authorization";
     public static final String ERROR         = "Error: ";
 
@@ -48,10 +46,10 @@ public class RedditServiceImpl implements RedditService {
                                               .string();
                 // Deserialize JSON response to RedditToken object
                 RedditToken redditToken = mapper.readValue( responseBody, RedditToken.class );
-                logger.info( "Access Token: " + redditToken.getToken() );
+                logService.log(  "Access Token: " + redditToken.getToken(),"info" );
                 return redditToken.getToken();
             } else {
-                logger.info( ERROR + response.code() + " - " + response.message() );
+                logService.log(  ERROR + response.code() + " - " + response.message(),null );
             }
         } catch ( IOException e ) {
             throw new RedditWatcherException( e );
@@ -81,13 +79,13 @@ public class RedditServiceImpl implements RedditService {
                                               .string();
                 // Deserialize JSON response to AboutDataBean object
                 RedditAboutData aboutData = mapper.readValue( responseBody, RedditAboutData.class );
-                logger.info( "Display Name: " + aboutData.getData()
-                                                         .getDisplayName() );
-                logger.info( "Subscribers: " + aboutData.getData()
-                                                        .getSubscribers() );
+                logService.log(  "Display Name: " + aboutData.getData()
+                                                         .getDisplayName(),"info" );
+                logService.log(  "Subscribers: " + aboutData.getData()
+                                                        .getSubscribers(),"info" );
                 return aboutData;
             } else {
-                logger.info( ERROR + response.code() + " - " + response.message() );
+                logService.log(  ERROR + response.code() + " - " + response.message(),null );
             }
         } catch ( IOException e ) {
             throw new RedditWatcherException( e );
@@ -126,7 +124,7 @@ public class RedditServiceImpl implements RedditService {
                                                                            .minusWeeks( 1 ) ) )
                                    .count();
             } else {
-                logger.info( ERROR + response.code() + " - " + response.message() );
+                logService.log(  ERROR + response.code() + " - " + response.message(),null );
             }
         } catch ( IOException e ) {
             throw new RedditWatcherException( e );
