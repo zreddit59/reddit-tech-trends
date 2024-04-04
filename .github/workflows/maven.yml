@@ -9,12 +9,12 @@
 name: Java CI with Maven Z
 
 on:
-  push:
-    branches: [ "master" ]
+#  push:
+#    branches: [ "master" ]
 #  pull_request:
 #    branches: [ "master" ]
-#  schedule:
-#    - cron: '0 0 * * 0'  # Run at midnight (00:00) every Sunday
+  schedule:
+    - cron: '0 0 * * 0'  # Run at midnight (00:00) every Sunday
 
 jobs:
   build:
