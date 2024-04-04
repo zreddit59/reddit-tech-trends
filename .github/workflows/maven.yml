@@ -28,6 +28,13 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Use secret in Java code
+      run: |
+        export USERNAME=${{ secrets.USERNAME }}
+        export PASSWORD=${{ secrets.PASSWORD }}
+        export AUTHORIZATION=${{ secrets.AUTHORIZATION }}
+        # Use the exported environment variable in your Java application
+
     - name: Build with Maven
       run: mvn clean install
 

@@ -24,15 +24,15 @@ public class RedditServiceImpl implements RedditService {
         // Create the request body with form parameters
         RequestBody formBody = new FormBody.Builder()
                 .add( "grant_type", "password" )
-                .add( "username", "Zreddit59" )
-                .add( "password", "codeTheWorld" )
+                .add( "username", System.getenv("USERNAME") )
+                .add( "password", System.getenv("PASSWORD") )
                 .build();
 
         // Create the request
         Request request = new Request.Builder()
                 .url( "https://www.reddit.com/api/v1/access_token" )
                 .addHeader( "Content-Type", "application/x-www-form-urlencoded" )
-                .addHeader( "Authorization", "Basic X19kY0xESHZyM1Rkb2VxSkh6UWpuUTpTTVpZaTVSUHF4QWVlMDRKNEhKcGZyRGRfUUhxNEE=" )
+                .addHeader( "Authorization", System.getenv("AUTHORIZATION") )
                 .post( formBody )
                 .build();
 
