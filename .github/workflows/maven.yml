@@ -56,9 +56,8 @@ jobs:
         if [ -z "$csv_path" ]; then
           echo "topic.csv not found in the workspace."
         else
-          cp $csv_path ./csvs/
-          git add ./csvs/topics.csv
-          git commit -m "Add csvs"
+          git add ./topics.csv
+          git commit -m "Add csv"
           git push origin master
         fi
 
