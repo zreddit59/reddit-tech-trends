@@ -52,7 +52,6 @@ jobs:
       run: |
         git config --global user.name 'Zreddit'
         git config --global user.email 'Zreddit59@techie.com'
-        git checkout -b csvs
         csv_path=$(find . -name "topics.csv")
         if [ -z "$csv_path" ]; then
           echo "topic.csv not found in the workspace."
@@ -60,7 +59,7 @@ jobs:
           cp $csv_path ./csvs/
           git add ./csvs/topics.csv
           git commit -m "Add csvs"
-          git push origin csvs
+          git push origin master
         fi
 
 
