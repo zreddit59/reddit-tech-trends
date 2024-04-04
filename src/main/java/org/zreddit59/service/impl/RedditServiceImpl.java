@@ -1,7 +1,5 @@
 package org.zreddit59.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.zreddit59.dto.RedditAboutData;
@@ -11,9 +9,15 @@ import org.zreddit59.service.RedditService;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Logger;
 
 
 public class RedditServiceImpl implements RedditService {
+
+    private static final Logger logger = Logger.getLogger( RedditServiceImpl.class.getName() );
+
+    public static final String AUTHORIZATION = "Authorization";
+    public static final String ERROR         = "Error: ";
 
     @Override
     public String getToken() {
@@ -24,15 +28,15 @@ public class RedditServiceImpl implements RedditService {
         // Create the request body with form parameters
         RequestBody formBody = new FormBody.Builder()
                 .add( "grant_type", "password" )
-                .add( "username", System.getenv("USERNAME") )
-                .add( "password", System.getenv("PASSWORD") )
+                .add( "username", System.getenv( "Z_USERNAME" ) )
+                .add( "password", System.getenv( "Z_PASSWORD" ) )
                 .build();
 
         // Create the request
         Request request = new Request.Builder()
                 .url( "https://www.reddit.com/api/v1/access_token" )
                 .addHeader( "Content-Type", "application/x-www-form-urlencoded" )
-                .addHeader( "Authorization", System.getenv("AUTHORIZATION") )
+                .addHeader( AUTHORIZATION, System.getenv( "Z_AUTHORIZATION" ) )
                 .post( formBody )
                 .build();
 
@@ -44,99 +48,103 @@ public class RedditServiceImpl implements RedditService {
                                               .string();
                 // Deserialize JSON response to RedditToken object
                 RedditToken redditToken = mapper.readValue( responseBody, RedditToken.class );
-                System.out.println( "Access Token: " + redditToken.getToken() );
+                logger.info( "Access Token: " + redditToken.getToken() );
                 return redditToken.getToken();
             } else {
-                System.err.println( "Error: " + response.code() + " - " + response.message() );
+                logger.info( ERROR + response.code() + " - " + response.message() );
             }
-        } catch ( JsonMappingException e ) {
-            throw new RuntimeException( e );
-        } catch ( JsonProcessingException e ) {
-            throw new RuntimeException( e );
         } catch ( IOException e ) {
-            throw new RuntimeException( e );
+            throw new RedditWatcherException( e );
         }
 
-        throw new RuntimeException( "Token fetch KO" );
+        throw new RedditWatcherException( "Token fetch KO" );
     }
 
 
     @Override
-    public RedditAboutData getAboutData( String topic, String token ){
+    public RedditAboutData getAboutData( String topic, String token ) {
         OkHttpClient client = new OkHttpClient();
         ObjectMapper mapper = new ObjectMapper();
 
         // Create the request
         Request request = new Request.Builder()
-                .url("https://oauth.reddit.com/r/"+topic+"/about")
-                .addHeader("User-Agent", "ChangeMeClient/0.1 by YourUsername")
-                .addHeader("Authorization", "bearer "+token)
+                .url( "https://oauth.reddit.com/r/" + topic + "/about" )
+                .addHeader( "User-Agent", "ChangeMeClient/0.1 by YourUsername" )
+                .addHeader( AUTHORIZATION, "bearer " + token )
                 .build();
 
         // Execute the request
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-                String responseBody = response.body().string();
+        try ( Response response = client.newCall( request )
+                                        .execute() ) {
+            if ( response.isSuccessful() ) {
+                String responseBody = response.body()
+                                              .string();
                 // Deserialize JSON response to AboutDataBean object
-                RedditAboutData aboutData = mapper.readValue(responseBody, RedditAboutData.class);
-                System.out.println("Display Name: " + aboutData.getData().getDisplayName());
-                System.out.println("Subscribers: " + aboutData.getData().getSubscribers());
+                RedditAboutData aboutData = mapper.readValue( responseBody, RedditAboutData.class );
+                logger.info( "Display Name: " + aboutData.getData()
+                                                         .getDisplayName() );
+                logger.info( "Subscribers: " + aboutData.getData()
+                                                        .getSubscribers() );
                 return aboutData;
             } else {
-                System.err.println("Error: " + response.code() + " - " + response.message());
+                logger.info( ERROR + response.code() + " - " + response.message() );
             }
-        } catch ( JsonMappingException e ) {
-            throw new RuntimeException( e );
-        } catch ( JsonProcessingException e ) {
-            throw new RuntimeException( e );
         } catch ( IOException e ) {
-            throw new RuntimeException( e );
+            throw new RedditWatcherException( e );
         }
 
 
-        throw new RuntimeException( "GET ABOUT "+topic+" KO" );
+        throw new RedditWatcherException( "GET ABOUT " + topic + " KO" );
     }
 
     @Override
-    public Long getMessagesDataCount( String topic, String token ){
+    public Long getMessagesDataCount( String topic, String token ) {
         OkHttpClient client = new OkHttpClient();
         ObjectMapper mapper = new ObjectMapper();
 
         // Create the request
         Request request = new Request.Builder()
-                .url("https://oauth.reddit.com/r/"+topic+"/new?limit=100")
-                .addHeader("User-Agent", "ChangeMeClient/0.1 by YourUsername")
-                .addHeader("Authorization", "bearer "+token)
+                .url( "https://oauth.reddit.com/r/" + topic + "/new?limit=100" )
+                .addHeader( "User-Agent", "ChangeMeClient/0.1 by YourUsername" )
+                .addHeader( AUTHORIZATION, "bearer " + token )
                 .build();
 
         // Execute the request
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-                String responseBody = response.body().string();
+        try ( Response response = client.newCall( request )
+                                        .execute() ) {
+            if ( response.isSuccessful() ) {
+                String responseBody = response.body()
+                                              .string();
                 // Deserialize JSON response to AboutDataBean object
-                RedditMessagesData messagesData = mapper.readValue(responseBody, RedditMessagesData.class);
-                long messagesCount = messagesData.getData()
-                                                    .getChildren()
-                                                    .stream()
-                                                    .map( RedditMessagesData.Child::getData )
-                                                    .filter( data -> data.getCreated()
-                                                                         .isAfter( LocalDate.now()
-                                                                                            .minusWeeks( 1 ) ) )
-                                                    .count();
-                return messagesCount;
+                RedditMessagesData messagesData = mapper.readValue( responseBody, RedditMessagesData.class );
+                return messagesData.getData()
+                                   .getChildren()
+                                   .stream()
+                                   .map( RedditMessagesData.Child::getData )
+                                   .filter( data -> data.getCreated()
+                                                        .isAfter( LocalDate.now()
+                                                                           .minusWeeks( 1 ) ) )
+                                   .count();
             } else {
-                System.err.println("Error: " + response.code() + " - " + response.message());
+                logger.info( ERROR + response.code() + " - " + response.message() );
             }
-        } catch ( JsonMappingException e ) {
-            throw new RuntimeException( e );
-        } catch ( JsonProcessingException e ) {
-            throw new RuntimeException( e );
         } catch ( IOException e ) {
-            throw new RuntimeException( e );
+            throw new RedditWatcherException( e );
         }
 
 
-        throw new RuntimeException( "GET MESSAGES of "+topic+" KO" );
+        throw new RedditWatcherException( "GET MESSAGES of " + topic + " KO" );
+    }
+
+    class RedditWatcherException extends RuntimeException {
+        public RedditWatcherException( Exception e ) {
+            super( e );
+        }
+
+        public RedditWatcherException( String errorMessage ) {
+            super( errorMessage );
+        }
+
     }
 
 }

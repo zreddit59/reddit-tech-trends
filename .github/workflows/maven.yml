@@ -28,14 +28,18 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Use secret in Java code
-      run: |
-        export USERNAME=${{ secrets.USERNAME }}
-        export PASSWORD=${{ secrets.PASSWORD }}
-        export AUTHORIZATION=${{ secrets.AUTHORIZATION }}
-        # Use the exported environment variable in your Java application
+#    - name: Use secret in Java code
+#      run: |
+#        export Z_USERNAME=${{ secrets.Z_USERNAME }}
+#        export Z_PASSWORD=${{ secrets.Z_PASSWORD }}
+#        export Z_AUTHORIZATION=${{ secrets.Z_AUTHORIZATION }}
+#        # Use the exported environment variable in your Java application
 
     - name: Build with Maven
+      env:
+        Z_USERNAME: ${{ secrets.Z_USERNAME }}
+        Z_PASSWORD: ${{ secrets.Z_PASSWORD }}
+        Z_AUTHORIZATION: ${{ secrets.Z_AUTHORIZATION }}
       run: mvn clean install
 
     - name: Run it
