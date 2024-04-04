@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Main {
 
+    //the subreddits names list
     private static final List<String> TOPICS = List.of( "java", "javascript", "Python", "csharp" );
 
     public static void main( String[] args ) {
