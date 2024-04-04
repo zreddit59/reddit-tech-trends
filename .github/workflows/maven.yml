@@ -36,13 +36,13 @@ jobs:
 #        # Use the exported environment variable in your Java application
 
     - name: Build with Maven
+      run: mvn clean install
+
+    - name: Run it
       env:
         Z_USERNAME: ${{ secrets.Z_USERNAME }}
         Z_PASSWORD: ${{ secrets.Z_PASSWORD }}
         Z_AUTHORIZATION: ${{ secrets.Z_AUTHORIZATION }}
-      run: mvn clean install
-
-    - name: Run it
       run: java -jar target/reddit-watcher-1.0-SNAPSHOT-jar-with-dependencies.jar
 
     - name: Create csvs directory
